@@ -152,3 +152,27 @@ class AllValuesFilter(ChoiceFilter):
         qs = self.model._default_manager.distinct().order_by(self.name).values_list(self.name, flat=True)
         self.extra['choices'] = [(o, o) for o in qs]
         return super(AllValuesFilter, self).field
+
+
+class TagFilter(MultipleChoiceFilter):
+    '''Displays django-tagging tags on registered models as a MultipleChoiceField'''
+    @property
+    def field(self):
+        #returns list of tags as unicode strings
+        qs = self.model.tags.split()
+        self.extra['choices'] = [(o, o) for o in qs]
+        return super(TagFilter, self).field
+
+    def filter(self, qs, value):
+        #returns spaced-separated string of tags
+        value_flat = ' '.join(value)
+        if value_flat:
+            #returns QuerySet containing model instances tagged with *all* tags in value_flat
+            return qs.model.tagged.with_all(value_flat, qs)
+        else:
+            return qs
+
+
+class MultipleChoiceAllValuesFilter(MultipleChoiceFilter, AllValuesFilter):
+    '''Displays AllValuesFilter as a MultipleChoiceField'''
+    pass
