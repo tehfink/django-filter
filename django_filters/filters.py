@@ -12,6 +12,7 @@ __all__ = [
     'MultipleChoiceFilter', 'DateFilter', 'DateTimeFilter', 'TimeFilter',
     'ModelChoiceFilter', 'ModelMultipleChoiceFilter', 'NumberFilter',
     'RangeFilter', 'DateRangeFilter', 'AllValuesFilter',
+    'TagFilter', 'MultipleChoiceAllValuesFilter',
 ]
 
 LOOKUP_TYPES = sorted(QUERY_TERMS.keys())
