@@ -23,11 +23,9 @@ setup(
         'Framework :: Django',
     ],
     package_data = {
-        'django_filters': [
-            'fixtures/*.json',
-        ],
         'django_filters.tests': [
-            'templates/django_filters/*.html',
+            'fixtures/*.json',
+            'templates/tests/*.html',
         ]
     },
     zip_safe=False,
